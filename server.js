@@ -46,8 +46,18 @@ app.get('/', async (req, res) => {
 });
 
 
-
-
+app.delete('/api/users/:email', async (req, res) => {
+    const { email } = req.params;
+    try {
+        const deletedUser = await User.findOneAndDelete({ email });
+        if (!deletedUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json({ message: 'User deleted successfully', user: deletedUser });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to delete user', details: err.message });
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
