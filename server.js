@@ -36,7 +36,7 @@ app.post('/api/users', async (req, res) => {
     }
 });
 
-app.get('/api/allusers', async (req, res) => {
+app.get('/', async (req, res) => {
     try {
         const users = await User.find();
         res.json(users);
@@ -46,9 +46,7 @@ app.get('/api/allusers', async (req, res) => {
 });
 
 
-app.get('/', (req, res) => {
-    res.send('🚀 Server is running');
-});
+
 
 
 app.listen(PORT, () => {
